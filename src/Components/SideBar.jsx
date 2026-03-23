@@ -4,6 +4,7 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import PodcastsIcon from '@mui/icons-material/Podcasts';
 import { dataContext } from "../Context/MetricsContext";
 import InventoryIcon from '@mui/icons-material/Inventory';
+import image from '../../public/ScanImagge.png';
 const SideBar = () => {
     const { isPermanent, setPermanent } = useContext(dataContext);
      const {LayoutOption,setOption} = useContext(dataContext);
@@ -24,12 +25,14 @@ const handleScannerClick = () =>{
         setDrawerW(val);
     }, [isPermanent])
     return (
-        <Drawer variant='permanent' open={true} slotProps={{
+        <Drawer variant={isPermanent ? 'permanent' : 'persistent'} open={true} slotProps={{
             paper: {
                 sx: { width: `${drawerWidth}`, bgcolor: '#ffffffff' }
             }
         }}>
-            <Toolbar></Toolbar>
+            <Toolbar>
+                <img src={image} width='250px' height='80px' alt='scanLogo'/>
+            </Toolbar>
             <List subheader={!isPermanent ? MenuIcons : undefined}>
                 {isPermanent && (<>
                     <ListItemButton onClick={handleScannerClick}>
