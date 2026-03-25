@@ -15,10 +15,10 @@ const ScannerDevice = () => {
 
     const [data, setData] = useState(null);
     const [error, setError] = useState('');
-    const {singleDevice, setDevice} =useContext(dataContext);
-    const [singleDataDevice,setSingleData ]= useState([]);
+    const { singleDevice, setDevice } = useContext(dataContext);
+    const [singleDataDevice, setSingleData] = useState([]);
 
-    const handleDeviceDetails = (param) =>{
+    const handleDeviceDetails = (param) => {
         setSingleData(param);
         setDevice(true);
     }
@@ -41,7 +41,7 @@ const ScannerDevice = () => {
             });
     };
 
- 
+
     const hosts = Array.isArray(data?.nmaprun?.host)
         ? data.nmaprun.host
         : data?.nmaprun?.host
@@ -81,17 +81,17 @@ const ScannerDevice = () => {
                                     title={obj.address?.$.addr || 'IP no disponible'}
                                     titleTypographyProps={{ variant: 'subtitle1', color: 'text.secondary' }}
                                 />
-
+                                {obj.address?.$.statusAgent}
                                 <CardMedia
                                     component="img"
                                     height="194"
                                     image={image}
-                                    alt="DeviceConnected"/>
+                                    alt="DeviceConnected" />
                                 <ListItemButton>
                                     <Button
                                         variant="outlined"
                                         startIcon={<DetailsIcon />}
-                                        onClick={()=>handleDeviceDetails(obj.address?.$)}
+                                        onClick={() => handleDeviceDetails(obj.address?.$)}
                                         disabled={isLoadingPetition}
                                         sx={{ width: '100%' }} >
                                         Ver detalles
@@ -109,8 +109,8 @@ const ScannerDevice = () => {
                         p: 2,
                         transition: "margin .3s ease"
                     }}>
-                        <SingleDevice onBack={()=>{setDevice(false)}} data={singleDataDevice}/>
-                    </Box>
+                    <SingleDevice onBack={() => { setDevice(false) }} data={singleDataDevice} />
+                </Box>
             </Box>)}
         </>
 

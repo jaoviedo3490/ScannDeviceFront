@@ -9,10 +9,11 @@ import { dataContext } from '../../../Context/MetricsContext';
 
 const SingleDevice = (props) => {
     const { setDevice } = useContext(dataContext);
-    const array = props.data?.Processor ? Object.keys(props.data.Processor) : [];
-    const arrayBios = props.data?.Bios ? Object.keys(props.data.Bios) : [];
-    const arrayMotherBoard = props.data?.MotherBoard ? Object.keys(props.data.MotherBoard) : [];
-    const arrayKeyboard = props.data?.Keyboard ? Object.keys(props.data.Keyboard) : [];
+    const array = props?.data?.Processor ? Object.keys(props?.data?.Processor) : [];
+    const arrayBios = props?.data?.Bios ? Object.keys(props?.data?.Bios) : [];
+    const arrayMotherBoard = props?.data?.MotherBoard ? Object.keys(props?.data?.MotherBoard) : [];
+    const arrayKeyboard = props?.data?.Keyboard ? Object.keys(props?.data?.Keyboard) : [];
+    const arraySoftwareInfo = props?.data?.SystemOperating ? Object.keys(props?.data?.SystemOperating) : [];
     console.log(array);
     const handleBackButton = () => {
         setDevice(false);
@@ -61,7 +62,7 @@ const SingleDevice = (props) => {
                                                 return (
                                                     <Box>
                                                         <Accordion sx={{ boxShadow: "none", border: "1px solid #ccc" }} key={`id-${idx}`}>
-                                                            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>Ranura {idx+1}</AccordionSummary>
+                                                            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>Ranura {idx + 1}</AccordionSummary>
                                                             <AccordionDetails>{`${JSON.stringify(ramObj)}`}</AccordionDetails>
                                                         </Accordion>
 
@@ -80,7 +81,7 @@ const SingleDevice = (props) => {
                                                 return (
                                                     <Box>
                                                         <Accordion sx={{ boxShadow: "none", border: "1px solid #ccc" }} key={`id-${idx}`}>
-                                                            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>Dispositivo {idx+1}</AccordionSummary>
+                                                            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>Dispositivo {idx + 1}</AccordionSummary>
                                                             <AccordionDetails>{`${JSON.stringify(diskObj)}`}</AccordionDetails>
                                                         </Accordion>
 
@@ -151,7 +152,7 @@ const SingleDevice = (props) => {
                                                 return (
                                                     <Box>
                                                         <Accordion sx={{ boxShadow: "none", border: "1px solid #ccc" }} key={`id-${idx}`}>
-                                                            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>Controlador {idx+1}</AccordionSummary>
+                                                            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>Controlador {idx + 1}</AccordionSummary>
                                                             <AccordionDetails>{`${JSON.stringify(mouseObj)}`}</AccordionDetails>
                                                         </Accordion>
 
@@ -171,11 +172,34 @@ const SingleDevice = (props) => {
                                 <Typography>Detalles de Software</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Typography>No Disponible</Typography>
+                                <AccordionDetails>
+
+
+                                    <Box>
+                                        <Accordion sx={{ boxShadow: "none", border: "1px solid #ccc" }}>
+                                            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>Sistema Operativo</AccordionSummary>
+                                            <AccordionDetails>{arraySoftwareInfo[0] ?? "No Disponible"}: {props?.data?.SystemOperating?.[arraySoftwareInfo[0]] ?? "No Disponible"}</AccordionDetails>
+                                            <AccordionDetails>{arraySoftwareInfo[1] ?? "No Disponible"}: {props?.data?.SystemOperating?.[arraySoftwareInfo[1]] ?? "No Disponible"}</AccordionDetails>
+                                            <AccordionDetails>{arraySoftwareInfo[2] ?? "No Disponible"}: {props?.data?.SystemOperating?.[arraySoftwareInfo[2]] ?? "No Disponible"}</AccordionDetails>
+                                        </Accordion>
+
+                                    </Box>
+                                    <Box>
+                                        <Accordion sx={{ boxShadow: "none", border: "1px solid #ccc" }}>
+                                            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>Nombre del Dispositivo</AccordionSummary>
+                                            <AccordionDetails>{props.data?.NameDevice ?? 'No disponible'}</AccordionDetails>
+
+                                        </Accordion>
+
+                                    </Box>
+
+
+
+                                </AccordionDetails>
                             </AccordionDetails>
                         </Accordion>
                     </Box>
-                    
+
 
                 </Stack>
 
