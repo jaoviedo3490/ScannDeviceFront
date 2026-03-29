@@ -5,23 +5,38 @@ import PodcastsIcon from '@mui/icons-material/Podcasts';
 import { dataContext } from "../Context/MetricsContext";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import image from '../../public/ScanImagge.png';
+import { useMediaQuery, useTheme } from "@mui/material";
+import singleImage from '../../public/ScanImaggee.png'
+import { Padding } from "@mui/icons-material";
 const SideBar = () => {
-    const { isPermanent, setPermanent } = useContext(dataContext);
-     const {LayoutOption,setOption} = useContext(dataContext);
+    const { isPermanent, setOption } = useContext(dataContext);
     const [drawerWidth, setDrawerW] = useState('');
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const handleScannerClick = (param) => {
+        setOption(param);
+    }
 
-const handleScannerClick = () =>{
-    setOption(1);
-}
-    const MenuIcons =
-        <Stack direction="column" spacing={2}>
-            <IconButton onClick={handleScannerClick}><PodcastsIcon /></IconButton>
-            <IconButton><InventoryIcon /></IconButton>
-        </Stack>
+    const MenuIcons = <>
+        <ListItemButton onClick={() => handleScannerClick(1)}>
+            <ListItemIcon><PodcastsIcon /></ListItemIcon>
+        </ListItemButton>
+        <ListItemButton onClick={() => handleScannerClick(2)} >
+            <ListItemIcon><InventoryIcon /></ListItemIcon>
+        </ListItemButton>
+    </>
+    const MenuIcons2 = <>
+        <ListItemButton onClick={() => handleScannerClick(1)}>
+            <ListItemIcon><Toolbar><PodcastsIcon /><ListItemText primary="Escanear Red"></ListItemText></Toolbar></ListItemIcon>
+        </ListItemButton>
+        <ListItemButton onClick={() => handleScannerClick(2)} >
+            <ListItemIcon><Toolbar><InventoryIcon /><ListItemText primary="Inventario"></ListItemText></Toolbar></ListItemIcon>
+        </ListItemButton>
+    </>
 
     useEffect(() => {
-        let val = (isPermanent) ? '250px' : '50px';
+        let val = (isPermanent) ? '250px' : '60px';
         setDrawerW(val);
     }, [isPermanent])
     return (
@@ -30,18 +45,11 @@ const handleScannerClick = () =>{
                 sx: { width: `${drawerWidth}`, bgcolor: '#ffffffff' }
             }
         }}>
-            <Toolbar>
-                <img src={image} width='250px' height='80px' alt='scanLogo'/>
+            <Toolbar disableGutters>
+                <img src={isPermanent ? image : singleImage} width={isPermanent ? '250px' : '60px'} height={isPermanent ? '80px' : '40px'} alt='scanLogo' />
             </Toolbar>
-            <List subheader={!isPermanent ? MenuIcons : undefined}>
-                {isPermanent && (<>
-                    <ListItemButton onClick={handleScannerClick}>
-                        <ListItemIcon><Toolbar><PodcastsIcon /><ListItemText primary="Escanear Red"></ListItemText></Toolbar></ListItemIcon>
-                    </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon><Toolbar><InventoryIcon /><ListItemText primary="Inventario"></ListItemText></Toolbar></ListItemIcon>
-                    </ListItemButton>
-                </>)}
+            <List subheader={!isPermanent ? MenuIcons : MenuIcons2}>
+
             </List>
         </Drawer>
     );
